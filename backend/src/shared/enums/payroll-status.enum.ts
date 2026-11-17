@@ -1,0 +1,9 @@
+export enum PayrollStatus {
+  DRAFT = 'DRAFT',
+  CALCULATED = 'CALCULATED',
+  APPROVED = 'APPROVED',
+  POSTED = 'POSTED',
+  PARTIALLY_PAID = 'PARTIALLY_PAID',
+  PAID = 'PAID',
+  REVERSED = 'REVERSED',
+}

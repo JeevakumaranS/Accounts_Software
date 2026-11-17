@@ -1,0 +1,6 @@
+export enum ExpenseType {
+  CASH_BANK = 'CASH_BANK',
+  CREDIT = 'CREDIT',
+  REIMBURSEMENT = 'REIMBURSEMENT',
+  RECURRING = 'RECURRING',
+}

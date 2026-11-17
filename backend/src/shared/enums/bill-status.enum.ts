@@ -1,0 +1,7 @@
+export enum BillStatus {
+  DRAFT = 'DRAFT',
+  POSTED = 'POSTED',
+  PARTIALLY_PAID = 'PARTIALLY_PAID',
+  PAID = 'PAID',
+  CANCELLED = 'CANCELLED',
+}
