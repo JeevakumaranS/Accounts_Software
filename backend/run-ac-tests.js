@@ -288,11 +288,12 @@ async function runTestSuite() {
 
   // AC-13 & AC-14: Payroll Calculation, Journal Posting & Disbursement
   try {
+    const testMonth = 7 + (Math.floor(Date.now() / 1000) % 5);
     const payrollRunRes = await request('/payroll/calculate', {
       method: 'POST',
       headers: ceoHeaders,
       body: JSON.stringify({
-        month: 6,
+        month: testMonth,
         year: 2026,
       }),
     });

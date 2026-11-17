@@ -2,14 +2,23 @@
 
 @theme {
   --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-sidebar: #0f172a;
-  --color-sidebar-hover: #1e293b;
-  --color-sidebar-active: #2563eb;
+  --color-brand-teal: #173e48;
+  --color-brand-petrol: #174955;
+  --color-brand-teal-elevated: #214e58;
+  --color-brand-teal-hover: #28606a;
+  --color-brand-teal-active: #2a606b;
+  --color-brand-teal-border: #42636b;
+  --color-brand-sand: #d5ad78;
+  --color-brand-sand-dark: #3d3022;
+  --color-canvas-bg: #f6f8fb;
+  --color-ink-primary: #17223a;
+  --color-ink-secondary: #758195;
+  --color-ink-eyebrow: #8993a5;
+  --color-border-card: #e8edf3;
+  --color-action-blue: #2769d7;
+  --color-status-green: #1b9e76;
+  --color-status-amber: #d49422;
+  --color-status-red: #d75a67;
 }
 
 :root {
@@ -18,6 +27,8 @@
 
 body {
   font-family: var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f6f8fb;
+  color: #17223a;
 }
 
 /* Custom scrollbars for ledger and tables */
@@ -26,7 +37,7 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #edf1f7;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;

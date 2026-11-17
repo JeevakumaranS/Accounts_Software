@@ -80,32 +80,33 @@ export default function VendorBillsPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="ACCOUNTS PAYABLE & ITC"
           title="Purchases & Vendor Bills"
           subtitle="Record vendor invoices, classify input tax credits (ITC) & manage payables"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-800">Purchase Bills Register</h2>
+            <h2 className="text-sm font-bold text-[#17223a]">Purchase Bills Register</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-all shadow-md shadow-purple-600/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#173e48] hover:bg-[#214e58] text-white text-xs font-bold transition-all shadow-xs"
             >
-              <PlusCircle className="h-4 w-4" />
+              <PlusCircle className="h-4 w-4 text-[#d5ad78]" />
               <span>Record Purchase Bill</span>
             </button>
           </div>
 
           {/* Bills Table */}
-          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
                   <tr>
                     <th className="py-3.5 px-4">Internal Bill #</th>
                     <th className="py-3.5 px-4">Vendor Bill #</th>

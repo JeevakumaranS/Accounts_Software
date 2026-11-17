@@ -77,18 +77,19 @@ export default function AccountingPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="DOUBLE-ENTRY BOOKKEEPING"
           title="Accounting Engine & General Ledger"
           subtitle="Single source of truth double-entry bookkeeping engine & Chart of Accounts"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           {/* Tab Navigation */}
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+          <div className="flex items-center gap-2 border-b border-[#e8edf3] pb-2">
             {[
               { id: 'TRIAL_BALANCE', label: 'Trial Balance', icon: Scale },
               { id: 'LEDGER', label: 'General Ledger', icon: BookOpen },
@@ -101,10 +102,10 @@ export default function AccountingPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      ? 'bg-[#173e48] text-white shadow-xs'
+                      : 'text-[#758195] hover:text-[#17223a] hover:bg-[#f6f8fb]'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -140,9 +141,9 @@ export default function AccountingPage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+              <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                  <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
                     <tr>
                       <th className="py-3 px-4 w-24">Code</th>
                       <th className="py-3 px-4">Account Name</th>
@@ -151,34 +152,34 @@ export default function AccountingPage() {
                       <th className="py-3 px-4 text-right w-36">Credit Balance (₹)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-[#eef1f5]">
                     {trialBalance.accounts?.map((acc: any) => (
-                      <tr key={acc.code} className="hover:bg-slate-50/70">
-                        <td className="py-3 px-4 font-mono font-bold text-slate-700">{acc.code}</td>
-                        <td className="py-3 px-4 font-semibold text-slate-900">{acc.name}</td>
+                      <tr key={acc.code} className="hover:bg-[#f6f8fb] transition-colors">
+                        <td className="py-3 px-4 font-mono font-bold text-[#173e48]">{acc.code}</td>
+                        <td className="py-3 px-4 font-bold text-[#17223a]">{acc.name}</td>
                         <td className="py-3 px-4">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-600">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#edf6f4] text-[#173e48] border border-[#dfe5e4]">
                             {acc.account_type}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-slate-900">
+                        <td className="py-3 px-4 text-right font-medium text-[#17223a]">
                           {acc.debit > 0 ? formatINR(acc.debit) : '-'}
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-slate-900">
+                        <td className="py-3 px-4 text-right font-medium text-[#17223a]">
                           {acc.credit > 0 ? formatINR(acc.credit) : '-'}
                         </td>
                       </tr>
                     ))}
                   </tbody>
-                  <tfoot className="bg-slate-100/80 font-black text-xs border-t-2 border-slate-300">
+                  <tfoot className="bg-[#f6f8fb] font-black text-xs border-t-2 border-[#42636b]">
                     <tr>
-                      <td colSpan={3} className="py-3.5 px-4 text-slate-900 uppercase">
+                      <td colSpan={3} className="py-3.5 px-4 text-[#173e48] uppercase tracking-wider">
                         Total General Ledger Balance:
                       </td>
-                      <td className="py-3.5 px-4 text-right text-blue-700 font-extrabold">
+                      <td className="py-3.5 px-4 text-right text-[#173e48] font-extrabold">
                         {formatINR(trialBalance.total_debit)}
                       </td>
-                      <td className="py-3.5 px-4 text-right text-blue-700 font-extrabold">
+                      <td className="py-3.5 px-4 text-right text-[#173e48] font-extrabold">
                         {formatINR(trialBalance.total_credit)}
                       </td>
                     </tr>

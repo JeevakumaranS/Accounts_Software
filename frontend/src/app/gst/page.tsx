@@ -37,18 +37,19 @@ export default function GstPage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="STATUTORY GST COMPLIANCE"
           title="GST Management & Statutory Reports"
           subtitle="Indian GST calculations, GSTR-1 sales register, and GSTR-3B ITC reconciliation"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           {/* Tabs */}
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+          <div className="flex items-center gap-2 border-b border-[#e8edf3] pb-2">
             {[
               { id: 'GSTR3B', label: 'GSTR-3B Summary (Net Tax & ITC)' },
               { id: 'GSTR1', label: 'GSTR-1 Outward Supplies (Sales)' },
@@ -57,10 +58,10 @@ export default function GstPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-[#173e48] text-white shadow-xs'
+                    : 'text-[#758195] hover:text-[#17223a] hover:bg-[#f6f8fb]'
                 }`}
               >
                 {tab.label}
@@ -72,14 +73,14 @@ export default function GstPage() {
           {activeTab === 'GSTR3B' && gstr3b && (
             <div className="space-y-6">
               {/* Net Position Card */}
-              <div className="bg-gradient-to-tr from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-md">
-                <div className="text-xs uppercase tracking-wider font-semibold text-blue-300">
+              <div className="bg-[#173e48] border border-[#42636b] text-white p-6 rounded-lg shadow-sm">
+                <div className="text-[10px] uppercase tracking-wider font-bold text-[#d5ad78]">
                   Current Net GST Position
                 </div>
-                <div className="text-3xl font-extrabold mt-1">
+                <div className="text-3xl font-extrabold text-[#d5ad78] mt-1">
                   {formatINR(gstr3b.net_tax_position?.total_net_payable)}
                 </div>
-                <div className="text-xs text-slate-300 mt-2 flex items-center gap-2">
+                <div className="text-xs text-[#c8d8d8] mt-2 flex items-center gap-2">
                   <span>Output Tax Liability less Eligible Input Tax Credit (ITC)</span>
                 </div>
               </div>

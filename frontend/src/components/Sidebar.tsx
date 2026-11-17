@@ -18,7 +18,6 @@ import {
   Settings,
   LogOut,
   ShieldCheck,
-  Building2,
   ChevronRight,
 } from 'lucide-react';
 import { useAuthStore } from '../store/auth.store';
@@ -27,17 +26,16 @@ interface NavItem {
   name: string;
   href: string;
   icon: any;
-  ceoOnly?: boolean;
 }
 
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'Sales & Invoices', href: '/invoices', icon: FileText },
   { name: 'Receivables', href: '/receivables', icon: ArrowDownToLine },
+  { name: 'Purchases (Bills)', href: '/vendor-bills', icon: ShoppingCart },
   { name: 'Payables', href: '/payables', icon: ArrowUpFromLine },
   { name: 'Expenses', href: '/expenses', icon: Receipt },
   { name: 'Employees & Payroll', href: '/payroll', icon: Users },
-  { name: 'Purchases (Bills)', href: '/vendor-bills', icon: ShoppingCart },
   { name: 'Cash & Bank', href: '/cash-bank', icon: Landmark },
   { name: 'Accounting Ledger', href: '/accounting', icon: BookOpen },
   { name: 'GST Management', href: '/gst', icon: Calculator },
@@ -50,28 +48,28 @@ export default function Sidebar() {
   const { user, logout } = useAuthStore();
 
   return (
-    <aside className="w-64 bg-[#0f172a] text-slate-300 flex flex-col shrink-0 h-screen sticky top-0 border-r border-slate-800 z-30 select-none">
+    <aside className="w-[240px] bg-[#173e48] text-[#c8d8d8] flex flex-col shrink-0 h-screen sticky top-0 border-r border-[#42636b] z-30 select-none">
       {/* Brand Header */}
-      <div className="p-5 border-b border-slate-800 flex items-center gap-3">
-        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/20">
+      <div className="p-4 border-b border-[#42636b] flex items-center gap-3">
+        <div className="h-9 w-9 rounded-lg bg-[#d5ad78] flex items-center justify-center text-[#3d3022] font-extrabold text-lg shadow-sm">
           D
         </div>
-        <div>
-          <div className="font-extrabold text-white tracking-wider text-sm flex items-center gap-1.5">
+        <div className="leading-tight">
+          <div className="font-extrabold text-white tracking-wider text-xs flex items-center gap-1.5">
             DUROZEN
-            <span className="text-[10px] bg-blue-500/20 text-blue-400 font-semibold px-1.5 py-0.5 rounded border border-blue-500/30">
+            <span className="text-[10px] bg-[#214e58] text-[#d5ad78] font-bold px-1.5 py-0.5 rounded border border-[#52747a]">
               ACCOUNTS
             </span>
           </div>
-          <div className="text-[11px] text-slate-400 truncate max-w-[140px]">
-            Durozen Technologies
+          <div className="text-[10px] text-[#c8d8d8] opacity-80 truncate max-w-[140px] mt-0.5 font-medium">
+            Financial Management
           </div>
         </div>
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-        <div className="px-3 pb-2 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+      <nav className="flex-1 overflow-y-auto px-2.5 py-3 space-y-1">
+        <div className="px-3 pb-2 text-[10px] font-bold text-[#8993a5] uppercase tracking-wider">
           Main Menu
         </div>
         {navItems.map((item) => {
@@ -85,38 +83,38 @@ export default function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium transition-all group ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-md text-xs font-semibold transition-all group ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-semibold'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                  ? 'bg-[#2a606b] text-white shadow-xs font-bold border-l-3 border-[#d5ad78]'
+                  : 'text-[#c8d8d8] hover:text-white hover:bg-[#28606a]'
               }`}
             >
               <Icon
                 className={`h-4 w-4 shrink-0 transition-colors ${
-                  isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
+                  isActive ? 'text-[#d5ad78]' : 'text-[#c8d8d8] group-hover:text-white'
                 }`}
               />
               <span className="flex-1 truncate">{item.name}</span>
               {isActive && (
-                <ChevronRight className="h-3.5 w-3.5 text-blue-200 opacity-80" />
+                <ChevronRight className="h-3.5 w-3.5 text-[#d5ad78] opacity-90" />
               )}
             </Link>
           );
         })}
       </nav>
 
-      {/* User profile & Session footer */}
-      <div className="p-3 border-t border-slate-800/80 bg-slate-900/60">
-        <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 border border-slate-700/50">
+      {/* User Profile & Session Footer */}
+      <div className="p-3 border-t border-[#42636b] bg-[#173e48]">
+        <div className="flex items-center justify-between p-2 rounded-lg bg-[#214e58] border border-[#52747a]">
           <div className="flex items-center gap-2.5 truncate">
-            <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-white text-xs font-bold border border-slate-600 shrink-0">
+            <div className="h-8 w-8 rounded-full bg-[#d5ad78] flex items-center justify-center text-[#3d3022] text-xs font-bold shrink-0 shadow-xs">
               {user?.name ? user.name[0] : 'U'}
             </div>
             <div className="truncate">
-              <div className="text-xs font-semibold text-slate-200 truncate">
+              <div className="text-xs font-bold text-white truncate">
                 {user?.name || 'Authorized User'}
               </div>
-              <div className="text-[10px] text-blue-400 flex items-center gap-1 font-medium">
+              <div className="text-[10px] text-[#d5ad78] flex items-center gap-1 font-semibold">
                 <ShieldCheck className="h-3 w-3" />
                 {user?.role || 'CEO'}
               </div>
@@ -125,7 +123,7 @@ export default function Sidebar() {
           <button
             onClick={() => logout()}
             title="Logout"
-            className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+            className="p-1.5 text-[#c8d8d8] hover:text-[#d75a67] hover:bg-[#173e48] rounded-md transition-colors"
           >
             <LogOut className="h-4 w-4" />
           </button>

@@ -37,18 +37,19 @@ export default function ReportsPage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="FINANCIAL REPORTING"
           title="Financial Reports & Statements"
           subtitle="Statutory financial statements derived from double-entry general ledger"
         />
 
         <div className="p-6 space-y-6 max-w-5xl mx-auto w-full">
           {/* Controls */}
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="flex items-center justify-between border-b border-[#e8edf3] pb-3">
             <div className="flex items-center gap-2">
               {[
                 { id: 'PNL', label: 'Profit & Loss' },
@@ -58,10 +59,10 @@ export default function ReportsPage() {
                 <button
                   key={r.id}
                   onClick={() => setActiveReport(r.id as any)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                     activeReport === r.id
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      ? 'bg-[#173e48] text-white shadow-xs'
+                      : 'text-[#758195] hover:text-[#17223a] hover:bg-[#f6f8fb]'
                   }`}
                 >
                   {r.label}
@@ -129,14 +130,14 @@ export default function ReportsPage() {
               </div>
 
               {/* Net Profit */}
-              <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+              <div className="p-4 rounded-lg bg-[#173e48] text-white border border-[#42636b] flex items-center justify-between shadow-xs">
                 <div>
-                  <div className="font-extrabold text-sm text-blue-900">
+                  <div className="font-extrabold text-sm text-white">
                     Net Profit / (Loss) for the Period (A - B)
                   </div>
-                  <div className="text-[11px] text-blue-600">Reconciled to Retained Earnings</div>
+                  <div className="text-[11px] text-[#c8d8d8]">Reconciled to Retained Earnings (Equity)</div>
                 </div>
-                <div className="text-2xl font-black text-blue-700">
+                <div className="text-2xl font-black text-[#d5ad78]">
                   {formatINR(pnl.net_profit)}
                 </div>
               </div>
@@ -145,10 +146,10 @@ export default function ReportsPage() {
 
           {/* 2. BALANCE SHEET */}
           {activeReport === 'BALANCE_SHEET' && balanceSheet && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
-              <div className="text-center pb-4 border-b border-slate-200">
-                <h2 className="text-lg font-extrabold text-slate-900">Durozen Technologies Pvt. Ltd.</h2>
-                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mt-0.5">
+            <div className="bg-white rounded-lg border border-[#e8edf3] p-8 shadow-xs space-y-6">
+              <div className="text-center pb-4 border-b border-[#e8edf3]">
+                <h2 className="text-lg font-extrabold text-[#17223a]">Durozen Technologies Pvt. Ltd.</h2>
+                <div className="text-xs font-bold text-[#173e48] uppercase tracking-wider mt-0.5">
                   Balance Sheet
                 </div>
                 <div className="text-xs text-slate-500 mt-1">

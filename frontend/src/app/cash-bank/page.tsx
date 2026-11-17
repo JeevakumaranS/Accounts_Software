@@ -75,23 +75,24 @@ export default function CashBankPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="TREASURY & LIQUIDITY"
           title="Cash & Bank Accounts Management"
           subtitle="Manage liquid assets, bank-to-bank transfers, cash deposits and withdrawals"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-800">Accounts & Liquid Funds</h2>
+            <h2 className="text-sm font-bold text-[#17223a]">Accounts & Liquid Funds</h2>
             <button
               onClick={() => setShowTransferModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-600/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#173e48] hover:bg-[#214e58] text-white text-xs font-bold transition-all shadow-xs"
             >
-              <ArrowLeftRight className="h-4 w-4" />
+              <ArrowLeftRight className="h-4 w-4 text-[#d5ad78]" />
               <span>Internal Funds Transfer</span>
             </button>
           </div>
