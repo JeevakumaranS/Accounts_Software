@@ -133,7 +133,7 @@ export default function PayrollPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f6f8fb]">
+    <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -147,33 +147,33 @@ export default function PayrollPage() {
           {/* Header Controls */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-sm font-bold text-[#17223a]">Monthly Payroll Runs</h2>
-              <p className="text-xs text-[#758195]">Gross salary, PF deductions & net payout control</p>
+              <h2 className="text-sm font-bold text-slate-800">Monthly Payroll Runs</h2>
+              <p className="text-xs text-slate-500">Gross salary, PF deductions & net payout control</p>
             </div>
 
             <div className="flex items-center gap-2.5">
               <button
                 onClick={() => setShowEmpModal(true)}
-                className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-[#e8edf3] text-[#17223a] text-xs font-semibold hover:bg-[#f6f8fb] shadow-xs"
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50 shadow-xs"
               >
-                <PlusCircle className="h-4 w-4 text-[#2769d7]" />
+                <PlusCircle className="h-4 w-4 text-slate-500" />
                 <span>Add Employee</span>
               </button>
               <button
                 onClick={handleCalculatePayroll}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#173e48] text-white text-xs font-bold hover:bg-[#214e58] shadow-xs"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 shadow-md shadow-blue-600/20"
               >
-                <Play className="h-4 w-4 text-[#d5ad78]" />
+                <Play className="h-4 w-4" />
                 <span>Calculate Current Month</span>
               </button>
             </div>
           </div>
 
           {/* Payroll Runs List */}
-          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
+                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                   <tr>
                     <th className="py-3.5 px-4">Period</th>
                     <th className="py-3.5 px-4">Total Employees</th>

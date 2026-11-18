@@ -2,6 +2,14 @@
 
 @theme {
   --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-sidebar: #0f172a;
+  --color-sidebar-hover: #1e293b;
+  --color-sidebar-active: #2563eb;
   --color-brand-teal: #173e48;
   --color-brand-petrol: #174955;
   --color-brand-teal-elevated: #214e58;
@@ -37,6 +45,7 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
+  background: #f1f5f9;
   background: #edf1f7;
 }
 ::-webkit-scrollbar-thumb {

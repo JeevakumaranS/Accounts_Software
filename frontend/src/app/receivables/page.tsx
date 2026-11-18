@@ -90,7 +90,7 @@ export default function ReceivablesPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f6f8fb]">
+    <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -102,10 +102,10 @@ export default function ReceivablesPage() {
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-[#17223a]">Payment Receipts Register</h2>
+            <h2 className="text-sm font-bold text-slate-800">Payment Receipts Register</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#1b9e76] hover:bg-[#15805f] text-white text-xs font-bold transition-all shadow-xs"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/20"
             >
               <PlusCircle className="h-4 w-4" />
               <span>Record Customer Payment</span>
@@ -113,7 +113,7 @@ export default function ReceivablesPage() {
           </div>
 
           {/* Receipts Table */}
-          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">

@@ -87,7 +87,7 @@ export default function PayablesPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f6f8fb]">
+    <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -99,21 +99,21 @@ export default function PayablesPage() {
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-[#17223a]">Vendor Payment Register</h2>
+            <h2 className="text-sm font-bold text-slate-800">Vendor Payment Register</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#173e48] hover:bg-[#214e58] text-white text-xs font-bold transition-all shadow-xs"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-all shadow-md shadow-purple-600/20"
             >
-              <PlusCircle className="h-4 w-4 text-[#d5ad78]" />
+              <PlusCircle className="h-4 w-4" />
               <span>Record Vendor Payment</span>
             </button>
           </div>
 
           {/* Table */}
-          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
+                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                   <tr>
                     <th className="py-3.5 px-4">Payment #</th>
                     <th className="py-3.5 px-4">Vendor</th>

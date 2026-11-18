@@ -1,4 +1,14 @@
-const BASE_URL = 'http://localhost:3001/api/v1';
+const path = require('node:path');
+const { loadEnvFile } = require('node:process');
+
+loadEnvFile(path.join(__dirname, '.env'));
+
+const backendUrl = process.env.BACKEND_URL;
+if (!backendUrl) {
+  throw new Error('BACKEND_URL must be configured in backend/.env.');
+}
+
+const BASE_URL = new URL('/api/v1', backendUrl).toString().replace(/\/$/, '');
 
 async function request(url, options = {}) {
   const fullUrl = url.startsWith('http') ? url : `${BASE_URL}${url}`;
@@ -293,6 +303,7 @@ async function runTestSuite() {
       method: 'POST',
       headers: ceoHeaders,
       body: JSON.stringify({
+        month: 6,
         month: testMonth,
         year: 2026,
       }),

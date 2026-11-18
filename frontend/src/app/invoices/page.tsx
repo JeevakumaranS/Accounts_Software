@@ -79,7 +79,7 @@ export default function InvoicesPage() {
   });
 
   return (
-    <div className="flex min-h-screen bg-[#f6f8fb]">
+    <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -120,7 +120,7 @@ export default function InvoicesPage() {
 
             <Link
               href="/invoices/new"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#2769d7] hover:bg-[#2059bd] text-white text-xs font-bold transition-all shadow-xs"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-600/20"
             >
               <PlusCircle className="h-4 w-4" />
               <span>Create New Invoice</span>
@@ -128,69 +128,69 @@ export default function InvoicesPage() {
           </div>
 
           {/* Invoices Data Table */}
-          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
+                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                   <tr>
-                    <th className="py-3 px-4">Invoice #</th>
-                    <th className="py-3 px-4">Customer</th>
-                    <th className="py-3 px-4">Date</th>
-                    <th className="py-3 px-4">Due Date</th>
-                    <th className="py-3 px-4 text-right">Taxable</th>
-                    <th className="py-3 px-4 text-right">GST</th>
-                    <th className="py-3 px-4 text-right">Total</th>
-                    <th className="py-3 px-4 text-right">Balance Due</th>
-                    <th className="py-3 px-4 text-center">Status</th>
-                    <th className="py-3 px-4 text-center">Actions</th>
+                    <th className="py-3.5 px-4">Invoice #</th>
+                    <th className="py-3.5 px-4">Customer</th>
+                    <th className="py-3.5 px-4">Date</th>
+                    <th className="py-3.5 px-4">Due Date</th>
+                    <th className="py-3.5 px-4 text-right">Taxable</th>
+                    <th className="py-3.5 px-4 text-right">GST</th>
+                    <th className="py-3.5 px-4 text-right">Total</th>
+                    <th className="py-3.5 px-4 text-right">Balance Due</th>
+                    <th className="py-3.5 px-4 text-center">Status</th>
+                    <th className="py-3.5 px-4 text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#eef1f5]">
+                <tbody className="divide-y divide-slate-100">
                   {filteredInvoices.length === 0 ? (
                     <tr>
-                      <td colSpan={10} className="py-12 text-center text-[#758195]">
+                      <td colSpan={10} className="py-12 text-center text-slate-400">
                         No invoices found. Click "Create New Invoice" to get started.
                       </td>
                     </tr>
                   ) : (
                     filteredInvoices.map((inv) => (
-                      <tr key={inv.id} className="hover:bg-[#f6f8fb] transition-colors">
-                        <td className="py-3 px-4 font-mono font-bold text-[#173e48]">
+                      <tr key={inv.id} className="hover:bg-slate-50/70 transition-colors">
+                        <td className="py-3.5 px-4 font-mono font-bold text-blue-600">
                           {inv.invoice_number}
                         </td>
-                        <td className="py-3 px-4 font-bold text-[#17223a]">
+                        <td className="py-3.5 px-4 font-medium text-slate-900">
                           {inv.customer?.name || 'Walk-in Customer'}
                         </td>
-                        <td className="py-3 px-4 text-[#758195]">
+                        <td className="py-3.5 px-4 text-slate-600">
                           {formatDate(inv.invoice_date)}
                         </td>
-                        <td className="py-3 px-4 text-[#758195]">
+                        <td className="py-3.5 px-4 text-slate-600">
                           {formatDate(inv.due_date)}
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-[#17223a]">
+                        <td className="py-3.5 px-4 text-right font-medium text-slate-700">
                           {formatINR(inv.taxable_amount)}
                         </td>
-                        <td className="py-3 px-4 text-right text-[#758195]">
+                        <td className="py-3.5 px-4 text-right text-slate-600">
                           {formatINR(Number(inv.cgst_amount || 0) + Number(inv.sgst_amount || 0) + Number(inv.igst_amount || 0))}
                         </td>
-                        <td className="py-3 px-4 text-right font-bold text-[#17223a]">
+                        <td className="py-3.5 px-4 text-right font-bold text-slate-900">
                           {formatINR(inv.total_amount)}
                         </td>
-                        <td className="py-3 px-4 text-right font-bold text-[#c18a2a]">
+                        <td className="py-3.5 px-4 text-right font-bold text-amber-600">
                           {formatINR(inv.balance_due)}
                         </td>
-                        <td className="py-3 px-4 text-center">
+                        <td className="py-3.5 px-4 text-center">
                           <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
                               inv.status === 'PAID'
-                                ? 'bg-[#edf6f4] text-[#1b9e76] border border-[#dfe5e4]'
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                                 : inv.status === 'POSTED'
-                                ? 'bg-[#e9f1ff] text-[#2769d7] border border-[#d6e4ff]'
+                                ? 'bg-blue-50 text-blue-700 border border-blue-200'
                                 : inv.status === 'PARTIALLY_PAID'
-                                ? 'bg-[#fff4df] text-[#c18a2a] border border-[#f3e5c9]'
+                                ? 'bg-purple-50 text-purple-700 border border-purple-200'
                                 : inv.status === 'DRAFT'
-                                ? 'bg-[#f6f8fb] text-[#758195] border border-[#e8edf3]'
-                                : 'bg-[#feecef] text-[#d75a67] border border-[#fad2d8]'
+                                ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                                : 'bg-rose-50 text-rose-700 border border-rose-200'
                             }`}
                           >
                             {inv.status}

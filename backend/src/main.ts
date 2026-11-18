@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
@@ -8,12 +7,29 @@ import { ResponseInterceptor } from './shared/interceptors/response.interceptor'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const backendUrl = process.env.BACKEND_URL;
+  const frontendUrl = process.env.FRONTEND_URL;
+
+  if (!backendUrl) {
+    throw new Error('BACKEND_URL must be configured.');
+  }
+
+  if (!frontendUrl) {
+    throw new Error('FRONTEND_URL must be configured.');
+  }
+
+  const backendAddress = new URL(backendUrl);
+  const frontendOrigin = new URL(frontendUrl).origin;
+
+  if (!['http:', 'https:'].includes(backendAddress.protocol)) {
+    throw new Error('BACKEND_URL must use HTTP or HTTPS.');
+  }
 
   app.setGlobalPrefix('api/v1');
   app.use(cookieParser());
 
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: frontendOrigin,
     credentials: true,
   });
 
@@ -28,22 +44,17 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
 
-  // Swagger OpenAPI Documentation
-  const config = new DocumentBuilder()
-    .setTitle('DUROZEN ACCOUNTS — Financial Management API')
-    .setDescription('Double-entry bookkeeping and GST accounting API for Durozen Technologies Pvt. Ltd.')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .addCookieAuth('access_token')
-    .build();
+  const configuredPort =
+    process.env.PORT ||
+    backendAddress.port ||
+    (backendAddress.protocol === 'https:' ? '443' : '80');
+  const port = Number(configuredPort);
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error('The backend URL or PORT must specify a valid port.');
+  }
 
-  const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log(`🚀 DUROZEN ACCOUNTS Backend running on http://localhost:${port}/api/v1`);
-  console.log(`📚 Swagger documentation at http://localhost:${port}/api/docs`);
 }
 
 bootstrap();
