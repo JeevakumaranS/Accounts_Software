@@ -80,9 +80,9 @@ export default function CustomersPage() {
             <h2 className="text-sm font-bold text-[#17223a]">Customers ({customers.length})</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#2769d7] text-white text-xs font-bold hover:bg-[#2059bd] transition-all shadow-xs"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#173e48] text-white text-xs font-semibold hover:bg-[#214e58] transition-colors shadow-xs"
             >
-              <PlusCircle className="h-4 w-4" />
+              <PlusCircle className="h-4 w-4 text-[#d5ad78]" />
               <span>Add Customer</span>
             </button>
           </div>

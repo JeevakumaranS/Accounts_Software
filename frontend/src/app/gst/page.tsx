@@ -5,51 +5,43 @@ import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import { formatINR } from '../../lib/format';
 import api from '../../lib/api';
-import { Calculator, FileSpreadsheet, CheckCircle2, ArrowRight } from 'lucide-react';
 
-export default function GstPage() {
-  const [activeTab, setActiveTab] = useState<'GSTR1' | 'GSTR3B' | 'RATES'>('GSTR3B');
-  const [gstr1, setGstr1] = useState<any>(null);
+export default function GSTPage() {
+  const [activeTab, setActiveTab] = useState<'GSTR3B' | 'GSTR1' | 'RATES'>('GSTR3B');
   const [gstr3b, setGstr3b] = useState<any>(null);
+  const [gstr1, setGstr1] = useState<any>(null);
   const [rates, setRates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadData = async () => {
-    setLoading(true);
-    try {
-      const [g1, g3, rts] = await Promise.all([
-        api.get('/reports/gstr1'),
-        api.get('/reports/gstr3b'),
-        api.get('/gst/rates'),
-      ]);
-      setGstr1(g1.data.data);
-      setGstr3b(g3.data.data);
-      setRates(rts.data.data || []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadData();
+    setLoading(true);
+    Promise.all([
+      api.get('/gst/gstr-3b'),
+      api.get('/gst/gstr-1'),
+      api.get('/gst/rates'),
+    ])
+      .then(([r3b, r1, rRates]) => {
+        setGstr3b(r3b.data?.data || null);
+        setGstr1(r1.data?.data || null);
+        setRates(rRates.data?.data || []);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
-          eyebrow="STATUTORY GST COMPLIANCE"
-          title="GST Management & Statutory Reports"
-          subtitle="Indian GST calculations, GSTR-1 sales register, and GSTR-3B ITC reconciliation"
+          eyebrow="STATUTORY COMPLIANCE"
+          title="Indian GST & Tax Management"
+          subtitle="Generate GSTR-3B monthly liabilities, GSTR-1 outward supplies & track input tax credits"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           {/* Tabs */}
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+          <div className="flex items-center gap-2 border-b border-[#e8edf3] pb-2">
             {[
               { id: 'GSTR3B', label: 'GSTR-3B Summary (Net Tax & ITC)' },
               { id: 'GSTR1', label: 'GSTR-1 Outward Supplies (Sales)' },
@@ -58,10 +50,10 @@ export default function GstPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-[#173e48] text-white shadow-xs'
+                    : 'text-[#758195] hover:text-[#17223a] hover:bg-[#edf6f4]'
                 }`}
               >
                 {tab.label}
@@ -72,52 +64,52 @@ export default function GstPage() {
           {/* TAB 1: GSTR-3B */}
           {activeTab === 'GSTR3B' && gstr3b && (
             <div className="space-y-6">
-              {/* Net Position Card */}
-              <div className="bg-gradient-to-tr from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-md">
-                <div className="text-xs uppercase tracking-wider font-semibold text-blue-300">
+              {/* Net Position Banner */}
+              <div className="bg-[#173e48] text-white p-6 rounded-xl border border-[#42636b] shadow-sm">
+                <div className="text-[11px] uppercase tracking-wider font-bold text-[#bfd1d1]">
                   Current Net GST Position
                 </div>
-                <div className="text-3xl font-extrabold mt-1">
+                <div className="text-3xl font-bold mt-1 text-white">
                   {formatINR(gstr3b.net_tax_position?.total_net_payable)}
                 </div>
-                <div className="text-xs text-slate-300 mt-2 flex items-center gap-2">
+                <div className="text-xs text-[#a9bec0] mt-2 flex items-center gap-2">
                   <span>Output Tax Liability less Eligible Input Tax Credit (ITC)</span>
                 </div>
               </div>
 
-              {/* 3 Grid Sections */}
+              {/* 2 Grid Sections */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* 1. Outward Taxable Supplies */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-                  <h3 className="font-bold text-sm text-slate-900 pb-2 border-b border-slate-100">
+                <div className="bg-white p-5 rounded-xl border border-[#e8edf3] shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-4">
+                  <h3 className="font-bold text-sm text-[#17223a] pb-2 border-b border-[#e8edf3]">
                     3.1 Outward Taxable Supplies (Sales)
                   </h3>
                   <div className="space-y-2 text-xs">
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>Total Taxable Value:</span>
-                      <span className="font-bold text-slate-900">
+                      <span className="font-bold text-[#17223a]">
                         {formatINR(gstr3b.output_tax?.taxable_value)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>CGST:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.output_tax?.cgst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>SGST:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.output_tax?.sgst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>IGST:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.output_tax?.igst)}
                       </span>
                     </div>
-                    <div className="pt-2 border-t border-slate-100 flex justify-between font-bold text-blue-600">
+                    <div className="pt-2 border-t border-[#e8edf3] flex justify-between font-bold text-[#173e48]">
                       <span>Total Output GST:</span>
                       <span>{formatINR(gstr3b.output_tax?.total_output_tax)}</span>
                     </div>
@@ -125,36 +117,36 @@ export default function GstPage() {
                 </div>
 
                 {/* 2. Eligible Input Tax Credit */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-                  <h3 className="font-bold text-sm text-slate-900 pb-2 border-b border-slate-100">
+                <div className="bg-white p-5 rounded-xl border border-[#e8edf3] shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-4">
+                  <h3 className="font-bold text-sm text-[#17223a] pb-2 border-b border-[#e8edf3]">
                     4. Eligible Input Tax Credit (ITC) from Purchases
                   </h3>
                   <div className="space-y-2 text-xs">
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>Purchase Taxable Value:</span>
-                      <span className="font-bold text-slate-900">
+                      <span className="font-bold text-[#17223a]">
                         {formatINR(gstr3b.eligible_itc?.taxable_value)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>Input CGST Credit:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.eligible_itc?.cgst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>Input SGST Credit:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.eligible_itc?.sgst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#758195]">
                       <span>Input IGST Credit:</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-[#17223a]">
                         {formatINR(gstr3b.eligible_itc?.igst)}
                       </span>
                     </div>
-                    <div className="pt-2 border-t border-slate-100 flex justify-between font-bold text-emerald-600">
+                    <div className="pt-2 border-t border-[#e8edf3] flex justify-between font-bold text-[#1b9e76]">
                       <span>Total Eligible ITC:</span>
                       <span>{formatINR(gstr3b.eligible_itc?.total_itc)}</span>
                     </div>
@@ -166,12 +158,12 @@ export default function GstPage() {
 
           {/* TAB 2: GSTR-1 */}
           {activeTab === 'GSTR1' && gstr1 && (
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
-              <div className="p-4 border-b border-slate-100 font-bold text-sm text-slate-800">
+            <div className="bg-white rounded-xl border border-[#e8edf3] overflow-hidden shadow-[0_1px_2px_rgba(220,225,232,0.35)]">
+              <div className="p-4 border-b border-[#e8edf3] font-bold text-sm text-[#17223a]">
                 GSTR-1 Outward Supplies Register (B2B & B2C)
               </div>
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                <thead className="bg-[#f6f8fb] text-[#8993a5] uppercase tracking-wider text-[11px] font-semibold border-b border-[#e8edf3]">
                   <tr>
                     <th className="p-3">Invoice #</th>
                     <th className="p-3">Date</th>
@@ -185,19 +177,19 @@ export default function GstPage() {
                     <th className="p-3 text-right font-bold">Total (₹)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#e8edf3]">
                   {[...(gstr1.b2b_invoices || []), ...(gstr1.b2c_invoices || [])].map((inv: any, idx: number) => (
-                    <tr key={idx} className="hover:bg-slate-50/70">
-                      <td className="p-3 font-mono font-bold text-blue-600">{inv.invoice_number}</td>
-                      <td className="p-3 text-slate-600">{inv.invoice_date}</td>
-                      <td className="p-3 font-semibold text-slate-900">{inv.customer_name}</td>
-                      <td className="p-3 font-mono text-slate-600">{inv.customer_gstin}</td>
-                      <td className="p-3 text-slate-600">{inv.place_of_supply}</td>
-                      <td className="p-3 text-right font-medium">{formatINR(inv.taxable_value)}</td>
-                      <td className="p-3 text-right">{formatINR(inv.cgst)}</td>
-                      <td className="p-3 text-right">{formatINR(inv.sgst)}</td>
-                      <td className="p-3 text-right">{formatINR(inv.igst)}</td>
-                      <td className="p-3 text-right font-bold text-slate-900">{formatINR(inv.total_value)}</td>
+                    <tr key={idx} className="hover:bg-[#edf6f4]/40 transition-colors">
+                      <td className="p-3 font-mono font-bold text-[#173e48]">{inv.invoice_number}</td>
+                      <td className="p-3 text-[#758195]">{inv.invoice_date}</td>
+                      <td className="p-3 font-semibold text-[#17223a]">{inv.customer_name}</td>
+                      <td className="p-3 font-mono text-[#758195]">{inv.customer_gstin}</td>
+                      <td className="p-3 text-[#758195]">{inv.place_of_supply}</td>
+                      <td className="p-3 text-right font-medium text-[#17223a]">{formatINR(inv.taxable_value)}</td>
+                      <td className="p-3 text-right text-[#758195]">{formatINR(inv.cgst)}</td>
+                      <td className="p-3 text-right text-[#758195]">{formatINR(inv.sgst)}</td>
+                      <td className="p-3 text-right text-[#758195]">{formatINR(inv.igst)}</td>
+                      <td className="p-3 text-right font-bold text-[#17223a]">{formatINR(inv.total_value)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -207,9 +199,9 @@ export default function GstPage() {
 
           {/* TAB 3: TAX RATES */}
           {activeTab === 'RATES' && (
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+            <div className="bg-white rounded-xl border border-[#e8edf3] overflow-hidden shadow-[0_1px_2px_rgba(220,225,232,0.35)]">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                <thead className="bg-[#f6f8fb] text-[#8993a5] uppercase tracking-wider text-[11px] font-semibold border-b border-[#e8edf3]">
                   <tr>
                     <th className="p-3.5">Tax Name</th>
                     <th className="p-3.5">Rate (%)</th>
@@ -218,19 +210,19 @@ export default function GstPage() {
                     <th className="p-3.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#e8edf3]">
                   {rates.map((r) => (
-                    <tr key={r.id} className="hover:bg-slate-50/70">
-                      <td className="p-3.5 font-bold text-slate-900">{r.tax_name}</td>
-                      <td className="p-3.5 font-extrabold text-blue-600">{r.rate}%</td>
+                    <tr key={r.id} className="hover:bg-[#edf6f4]/40 transition-colors">
+                      <td className="p-3.5 font-bold text-[#17223a]">{r.tax_name}</td>
+                      <td className="p-3.5 font-bold text-[#173e48]">{r.rate}%</td>
                       <td className="p-3.5">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#f6f8fb] text-[#758195] border border-[#e8edf3]">
                           {r.tax_type}
                         </span>
                       </td>
-                      <td className="p-3.5 text-slate-600">{r.effective_from}</td>
+                      <td className="p-3.5 text-[#758195]">{r.effective_from}</td>
                       <td className="p-3.5 text-center">
-                        <span className="text-emerald-600 font-bold text-[10px]">Active</span>
+                        <span className="text-[#1b9e76] font-bold text-[10px] bg-[#edf6f4] px-2 py-0.5 rounded-full border border-[#1b9e76]/20">Active</span>
                       </td>
                     </tr>
                   ))}

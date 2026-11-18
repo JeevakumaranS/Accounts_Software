@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${montserrat.variable} h-full`}>
-      <body className="min-h-full font-sans antialiased bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
+      <body className="min-h-full font-sans antialiased bg-[#f6f8fb] text-[#17223a] selection:bg-[#2769d7] selection:text-white">
         {children}
       </body>
     </html>

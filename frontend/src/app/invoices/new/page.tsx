@@ -186,13 +186,13 @@ export default function NewInvoicePage() {
             {/* Top Customer & Date Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-[#17223a] mb-1.5">
                   Customer *
                 </label>
                 <select
                   value={selectedCustomerId}
                   onChange={(e) => setSelectedCustomerId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] text-xs font-medium text-[#17223a] focus:outline-none focus:ring-2 focus:ring-[#367b80]"
                 >
                   {customers.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -201,33 +201,33 @@ export default function NewInvoicePage() {
                   ))}
                 </select>
                 {selectedCustomer && (
-                  <div className="text-[11px] text-slate-500 mt-1">
+                  <div className="text-[11px] text-[#758195] mt-1">
                     GSTIN: {selectedCustomer.gstin || 'B2C (Unregistered)'} • State Code: {selectedCustomer.state_code || '33'}
                   </div>
                 )}
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-[#17223a] mb-1.5">
                   Invoice Date *
                 </label>
                 <input
                   type="date"
                   value={invoiceDate}
                   onChange={(e) => setInvoiceDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] text-xs font-medium text-[#17223a] focus:outline-none focus:ring-2 focus:ring-[#367b80]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-[#17223a] mb-1.5">
                   Due Date *
                 </label>
                 <input
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] text-xs font-medium text-[#17223a] focus:outline-none focus:ring-2 focus:ring-[#367b80]"
                 />
               </div>
             </div>
@@ -279,20 +279,20 @@ export default function NewInvoicePage() {
                       <th className="p-3 w-10 text-center"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-[#e8edf3]">
                     {items.map((itm, idx) => {
                       const qty = Number(itm.quantity) || 0;
                       const rate = Number(itm.unit_price) || 0;
                       const amt = qty * rate;
                       return (
-                        <tr key={idx} className="hover:bg-slate-50/50">
+                        <tr key={idx} className="hover:bg-[#edf6f4]/40 transition-colors">
                           <td className="p-2">
                             <input
                               type="text"
                               value={itm.description}
                               placeholder="Description..."
                               onChange={(e) => updateItem(idx, 'description', e.target.value)}
-                              className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium focus:ring-1 focus:ring-blue-500"
+                              className="w-full px-2.5 py-1.5 rounded-lg border border-[#e8edf3] text-xs font-medium text-[#17223a] focus:ring-1 focus:ring-[#367b80]"
                             />
                           </td>
                           <td className="p-2">
@@ -301,7 +301,7 @@ export default function NewInvoicePage() {
                               value={itm.hsn_sac}
                               placeholder="HSN"
                               onChange={(e) => updateItem(idx, 'hsn_sac', e.target.value)}
-                              className="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-mono"
+                              className="w-full px-2 py-1.5 rounded-lg border border-[#e8edf3] text-xs font-mono text-[#17223a]"
                             />
                           </td>
                           <td className="p-2">
@@ -310,7 +310,7 @@ export default function NewInvoicePage() {
                               min="1"
                               value={itm.quantity}
                               onChange={(e) => updateItem(idx, 'quantity', Number(e.target.value))}
-                              className="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-xs text-center"
+                              className="w-full px-2 py-1.5 rounded-lg border border-[#e8edf3] text-xs text-center text-[#17223a]"
                             />
                           </td>
                           <td className="p-2">
@@ -319,14 +319,14 @@ export default function NewInvoicePage() {
                               min="0"
                               value={itm.unit_price}
                               onChange={(e) => updateItem(idx, 'unit_price', Number(e.target.value))}
-                              className="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-xs text-right font-medium"
+                              className="w-full px-2 py-1.5 rounded-lg border border-[#e8edf3] text-xs text-right font-medium text-[#17223a]"
                             />
                           </td>
                           <td className="p-2">
                             <select
                               value={itm.tax_rate}
                               onChange={(e) => updateItem(idx, 'tax_rate', Number(e.target.value))}
-                              className="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold"
+                              className="w-full px-2 py-1.5 rounded-lg border border-[#e8edf3] text-xs font-semibold text-[#17223a]"
                             >
                               <option value="18">18%</option>
                               <option value="12">12%</option>
@@ -335,14 +335,14 @@ export default function NewInvoicePage() {
                               <option value="0">0%</option>
                             </select>
                           </td>
-                          <td className="p-2 text-right font-bold text-slate-800">
+                          <td className="p-2 text-right font-bold text-[#17223a]">
                             {formatINR(amt)}
                           </td>
                           <td className="p-2 text-center">
                             <button
                               type="button"
                               onClick={() => removeItem(idx)}
-                              className="p-1 text-slate-400 hover:text-red-500"
+                              className="p-1 text-[#8993a5] hover:text-[#d75a67]"
                             >
                               <Trash2 className="h-4 w-4" />
                             </button>
