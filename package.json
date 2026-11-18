@@ -1,6 +1,10 @@
 {
   "name": "accounts-software",
   "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
     "dev": "node scripts/dev.js"
   }

@@ -26,14 +26,14 @@ export default function SettingsPage() {
 
   useEffect(() => {
     api.get('/company/settings').then((res) => {
-      if (res.data.data) setSettings(res.data.data);
+      if (res.data?.data) setSettings(res.data.data);
     });
     api.get('/company/financial-years').then((res) => {
-      setFinancialYears(res.data.data || []);
+      setFinancialYears(res.data?.data || []);
     });
     if (user?.role === 'CEO') {
       api.get('/users').then((res) => {
-        setUsersList(res.data.data || []);
+        setUsersList(res.data?.data || []);
       });
     }
   }, [user]);
@@ -56,7 +56,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -67,21 +67,23 @@ export default function SettingsPage() {
 
         <div className="p-6 space-y-6 max-w-4xl mx-auto w-full">
           {/* Company Settings Form */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+          <div className="bg-white rounded-xl border border-[#e8edf3] p-6 shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e8edf3]">
               <div className="flex items-center gap-2.5">
-                <Building2 className="h-5 w-5 text-blue-600" />
+                <div className="p-2 rounded-lg bg-[#edf6f4] text-[#173e48]">
+                  <Building2 className="h-5 w-5" />
+                </div>
                 <div>
-                  <h3 className="font-bold text-sm text-slate-900">
+                  <h3 className="font-bold text-sm text-[#17223a]">
                     Company GST & Legal Profile
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-[#758195]">
                     Used for invoicing, statutory reporting & tax identification
                   </p>
                 </div>
               </div>
               {user?.role !== 'CEO' && (
-                <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+                <span className="text-[10px] font-bold text-[#c18a2a] bg-[#fff4df] border border-[#d49422]/30 px-2.5 py-1 rounded-full">
                   Read Only (Accountant View)
                 </span>
               )}
@@ -90,57 +92,57 @@ export default function SettingsPage() {
             <form onSubmit={handleSaveSettings} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Company Legal Name</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Company Legal Name</label>
                   <input
                     type="text"
                     disabled={user?.role !== 'CEO'}
                     value={settings.legal_name || ''}
                     onChange={(e) => setSettings({ ...settings, legal_name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 disabled:bg-slate-50 font-medium"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] focus:border-[#173e48] focus:ring-1 focus:ring-[#173e48] outline-hidden disabled:bg-[#f6f8fb] font-medium text-[#17223a]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Company GSTIN *</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Company GSTIN *</label>
                   <input
                     type="text"
                     disabled={user?.role !== 'CEO'}
                     value={settings.gstin || ''}
                     onChange={(e) => setSettings({ ...settings, gstin: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 disabled:bg-slate-50 font-mono font-bold text-blue-600"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] focus:border-[#173e48] focus:ring-1 focus:ring-[#173e48] outline-hidden disabled:bg-[#f6f8fb] font-mono font-bold text-[#173e48]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Registered Address</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Registered Address</label>
                   <input
                     type="text"
                     disabled={user?.role !== 'CEO'}
                     value={settings.address || ''}
                     onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 disabled:bg-slate-50"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] focus:border-[#173e48] focus:ring-1 focus:ring-[#173e48] outline-hidden disabled:bg-[#f6f8fb] text-[#17223a]"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">City</label>
+                  <label className="block font-bold text-[#17223a] mb-1">City</label>
                   <input
                     type="text"
                     disabled={user?.role !== 'CEO'}
                     value={settings.city || ''}
                     onChange={(e) => setSettings({ ...settings, city: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 disabled:bg-slate-50"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] focus:border-[#173e48] focus:ring-1 focus:ring-[#173e48] outline-hidden disabled:bg-[#f6f8fb] text-[#17223a]"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">State & GST Code</label>
+                  <label className="block font-bold text-[#17223a] mb-1">State & GST Code</label>
                   <input
                     type="text"
                     disabled={user?.role !== 'CEO'}
                     value={`${settings.state || ''} (${settings.state_code || ''})`}
                     onChange={(e) => setSettings({ ...settings, state: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 disabled:bg-slate-50 font-semibold"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e8edf3] focus:border-[#173e48] focus:ring-1 focus:ring-[#173e48] outline-hidden disabled:bg-[#f6f8fb] font-semibold text-[#17223a]"
                   />
                 </div>
               </div>
@@ -150,7 +152,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-[#173e48] hover:bg-[#214e58] text-white rounded-lg text-xs font-bold shadow-xs transition-colors"
                   >
                     <Save className="h-4 w-4" /> Save Settings
                   </button>
@@ -160,27 +162,29 @@ export default function SettingsPage() {
           </div>
 
           {/* Financial Years */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <Calendar className="h-5 w-5 text-emerald-600" />
+          <div className="bg-white rounded-xl border border-[#e8edf3] p-6 shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-4">
+            <div className="flex items-center gap-2.5 pb-3 border-b border-[#e8edf3]">
+              <div className="p-2 rounded-lg bg-[#edf6f4] text-[#1b9e76]">
+                <Calendar className="h-5 w-5" />
+              </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900">Financial Years</h3>
-                <p className="text-xs text-slate-500">
+                <h3 className="font-bold text-sm text-[#17223a]">Financial Years</h3>
+                <p className="text-xs text-[#758195]">
                   Fiscal period control for statutory invoice numbering and reporting
                 </p>
               </div>
             </div>
 
-            <div className="divide-y divide-slate-100 text-xs">
+            <div className="divide-y divide-[#e8edf3] text-xs">
               {financialYears.map((fy) => (
                 <div key={fy.id} className="py-3 flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900 text-sm">FY {fy.name}</span>
-                    <span className="text-slate-500 ml-2">
+                    <span className="font-bold text-[#17223a] text-sm">FY {fy.name}</span>
+                    <span className="text-[#758195] ml-2">
                       ({fy.start_date} to {fy.end_date})
                     </span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#edf6f4] text-[#1b9e76] border border-[#1b9e76]/20">
                     {fy.status}
                   </span>
                 </div>
@@ -189,14 +193,16 @@ export default function SettingsPage() {
           </div>
 
           {/* User Roles & Access Control (SRS Section 2) */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <Shield className="h-5 w-5 text-indigo-600" />
+          <div className="bg-white rounded-xl border border-[#e8edf3] p-6 shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-4">
+            <div className="flex items-center gap-2.5 pb-3 border-b border-[#e8edf3]">
+              <div className="p-2 rounded-lg bg-[#edf6f4] text-[#173e48]">
+                <Shield className="h-5 w-5" />
+              </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900">
+                <h3 className="font-bold text-sm text-[#17223a]">
                   User Roles & Access Permissions Matrix
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[#758195]">
                   Enforced across all REST API endpoints and user interfaces
                 </p>
               </div>
@@ -204,14 +210,14 @@ export default function SettingsPage() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 font-semibold text-slate-600 border-b border-slate-200">
+                <thead className="bg-[#f6f8fb] font-semibold text-[#8993a5] uppercase tracking-wider text-[11px] border-b border-[#e8edf3]">
                   <tr>
-                    <th className="p-2.5">System Function</th>
-                    <th className="p-2.5 text-center">CEO</th>
-                    <th className="p-2.5 text-center">Accountant</th>
+                    <th className="p-3">System Function</th>
+                    <th className="p-3 text-center">CEO</th>
+                    <th className="p-3 text-center">Accountant</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#e8edf3]">
                   {[
                     ['Dashboard & Financial Reports', 'Full Access', 'Full Access'],
                     ['Create & Post Invoices', 'Yes', 'Yes'],
@@ -224,10 +230,10 @@ export default function SettingsPage() {
                     ['Manage GST & Company Settings', 'Yes', 'Restricted (Read)'],
                     ['Permanent Delete of Posted Records', 'Prohibited (No)', 'Prohibited (No)'],
                   ].map(([fn, ceo, acc], idx) => (
-                    <tr key={idx} className="hover:bg-slate-50/70">
-                      <td className="p-2.5 font-medium text-slate-900">{fn}</td>
-                      <td className="p-2.5 text-center font-bold text-blue-600">{ceo}</td>
-                      <td className="p-2.5 text-center font-semibold text-slate-700">{acc}</td>
+                    <tr key={idx} className="hover:bg-[#edf6f4]/40 transition-colors">
+                      <td className="p-3 font-medium text-[#17223a]">{fn}</td>
+                      <td className="p-3 text-center font-bold text-[#173e48]">{ceo}</td>
+                      <td className="p-3 text-center font-semibold text-[#758195]">{acc}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -144,11 +144,12 @@ export default function NewInvoicePage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="INVOICE GENERATION"
           title="Create Sales Invoice"
           subtitle="Indian GST invoice generation with automatic tax computation"
         />
@@ -157,7 +158,7 @@ export default function NewInvoicePage() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900"
+              className="flex items-center gap-2 text-xs font-semibold text-[#758195] hover:text-[#17223a]"
             >
               <ArrowLeft className="h-4 w-4" /> Back to Invoices
             </button>
@@ -165,15 +166,15 @@ export default function NewInvoicePage() {
               <button
                 disabled={submitting}
                 onClick={() => handleSubmit(false)}
-                className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-100 flex items-center gap-1.5 shadow-xs"
+                className="px-4 py-2 rounded-lg bg-white border border-[#e8edf3] text-[#17223a] text-xs font-semibold hover:bg-[#f6f8fb] flex items-center gap-1.5 shadow-xs"
               >
-                <Save className="h-4 w-4 text-slate-500" />
+                <Save className="h-4 w-4 text-[#758195]" />
                 <span>Save as Draft</span>
               </button>
               <button
                 disabled={submitting}
                 onClick={() => handleSubmit(true)}
-                className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-blue-600/20"
+                className="px-5 py-2 rounded-lg bg-[#2769d7] hover:bg-[#2059bd] text-white text-xs font-bold flex items-center gap-1.5 shadow-sm"
               >
                 <Send className="h-4 w-4" />
                 <span>Post Invoice</span>
@@ -181,7 +182,7 @@ export default function NewInvoicePage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+          <div className="bg-white rounded-lg border border-[#e8edf3] p-6 shadow-xs space-y-6">
             {/* Top Customer & Date Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
@@ -232,20 +233,20 @@ export default function NewInvoicePage() {
             </div>
 
             {/* GST Treatment Banner */}
-            <div className="p-3 bg-blue-50/70 border border-blue-200 rounded-xl flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 text-blue-900 font-medium">
+            <div className="p-3 bg-[#edf6f4] border border-[#dfe5e4] rounded-lg flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 text-[#173e48] font-medium">
                 <span className="font-bold">GST Supply Type:</span>
                 {isInterState ? (
-                  <span className="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded">
+                  <span className="text-[#c18a2a] font-bold bg-[#fff4df] px-2 py-0.5 rounded border border-[#f3e5c9]">
                     Inter-State Supply (IGST Applicable)
                   </span>
                 ) : (
-                  <span className="text-emerald-800 font-bold bg-emerald-100 px-2 py-0.5 rounded">
+                  <span className="text-[#1b9e76] font-bold bg-[#e3f7f0] px-2 py-0.5 rounded border border-[#c4ebdb]">
                     Intra-State Supply (CGST + SGST Split Applicable)
                   </span>
                 )}
               </div>
-              <div className="text-slate-500 text-[11px]">
+              <div className="text-[#758195] text-[11px]">
                 Company Origin: Tamil Nadu (33)
               </div>
             </div>
@@ -253,21 +254,21 @@ export default function NewInvoicePage() {
             {/* Line Items Table */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#8993a5]">
                   Invoice Line Items
                 </h3>
                 <button
                   type="button"
                   onClick={addItem}
-                  className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800"
+                  className="flex items-center gap-1 text-xs font-bold text-[#2769d7] hover:text-[#173e48]"
                 >
                   <Plus className="h-4 w-4" /> Add Line
                 </button>
               </div>
 
-              <div className="border border-slate-200 rounded-xl overflow-hidden">
+              <div className="border border-[#e8edf3] rounded-lg overflow-hidden">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                  <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
                     <tr>
                       <th className="p-3 w-5/12">Item / Description</th>
                       <th className="p-3 w-24">HSN/SAC</th>
@@ -355,48 +356,48 @@ export default function NewInvoicePage() {
             </div>
 
             {/* Calculations Breakdown */}
-            <div className="flex flex-col sm:flex-row justify-between gap-6 pt-4 border-t border-slate-200">
+            <div className="flex flex-col sm:flex-row justify-between gap-6 pt-4 border-t border-[#e8edf3]">
               <div className="flex-1 space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#17223a] mb-1">
                     Customer Notes
                   </label>
                   <textarea
                     rows={2}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2.5 rounded-lg border border-[#e8edf3] text-xs focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
               </div>
 
-              <div className="w-full sm:w-80 bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2.5 text-xs">
-                <div className="flex justify-between text-slate-600">
+              <div className="w-full sm:w-80 bg-[#173e48] p-5 rounded-lg border border-[#42636b] text-white space-y-2.5 text-xs shadow-sm">
+                <div className="flex justify-between text-[#c8d8d8]">
                   <span>Taxable Subtotal:</span>
-                  <span className="font-semibold text-slate-900">{formatINR(totalTaxable)}</span>
+                  <span className="font-semibold text-white">{formatINR(totalTaxable)}</span>
                 </div>
 
                 {isInterState ? (
-                  <div className="flex justify-between text-slate-600">
+                  <div className="flex justify-between text-[#c8d8d8]">
                     <span>IGST:</span>
-                    <span className="font-semibold text-slate-900">{formatINR(totalIgst)}</span>
+                    <span className="font-semibold text-white">{formatINR(totalIgst)}</span>
                   </div>
                 ) : (
                   <>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#c8d8d8]">
                       <span>Output CGST:</span>
-                      <span className="font-semibold text-slate-900">{formatINR(totalCgst)}</span>
+                      <span className="font-semibold text-white">{formatINR(totalCgst)}</span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-[#c8d8d8]">
                       <span>Output SGST:</span>
-                      <span className="font-semibold text-slate-900">{formatINR(totalSgst)}</span>
+                      <span className="font-semibold text-white">{formatINR(totalSgst)}</span>
                     </div>
                   </>
                 )}
 
-                <div className="pt-3 border-t border-slate-200 flex justify-between font-extrabold text-base text-slate-900">
+                <div className="pt-3 border-t border-[#42636b] flex justify-between font-extrabold text-base text-white">
                   <span>Invoice Total:</span>
-                  <span className="text-blue-600">{formatINR(totalAmount)}</span>
+                  <span className="text-[#d5ad78]">{formatINR(totalAmount)}</span>
                 </div>
               </div>
             </div>

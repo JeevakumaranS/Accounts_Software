@@ -298,12 +298,15 @@ async function runTestSuite() {
 
   // AC-13 & AC-14: Payroll Calculation, Journal Posting & Disbursement
   try {
-    const testMonth = 7 + (Math.floor(Date.now() / 1000) % 5);
+    const existingRunsRes = await request('/payroll', { headers: ceoHeaders });
+    const existingMonths = new Set((existingRunsRes.data?.data || []).map(r => r.payroll_month));
+    const allMonths = [1, 2, 3, 4, 7, 8, 9, 10, 12, 5, 6, 11];
+    const testMonth = allMonths.find(m => !existingMonths.has(m)) || 12;
+
     const payrollRunRes = await request('/payroll/calculate', {
       method: 'POST',
       headers: ceoHeaders,
       body: JSON.stringify({
-        month: 6,
         month: testMonth,
         year: 2026,
       }),

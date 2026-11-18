@@ -65,30 +65,31 @@ export default function CustomersPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="CLIENT DIRECTORY"
           title="Customer Management"
           subtitle="Customer directory, GSTIN details, state codes & billing profiles"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-800">Customers ({customers.length})</h2>
+            <h2 className="text-sm font-bold text-[#17223a]">Customers ({customers.length})</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-600/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#2769d7] text-white text-xs font-bold hover:bg-[#2059bd] transition-all shadow-xs"
             >
               <PlusCircle className="h-4 w-4" />
               <span>Add Customer</span>
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
                 <tr>
                   <th className="p-3.5">Code</th>
                   <th className="p-3.5">Customer Name</th>
@@ -99,21 +100,21 @@ export default function CustomersPage() {
                   <th className="p-3.5 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-[#eef1f5]">
                 {customers.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-50/70">
-                    <td className="p-3.5 font-mono font-bold text-blue-600">{c.customer_code}</td>
-                    <td className="p-3.5 font-bold text-slate-900">{c.name}</td>
-                    <td className="p-3.5 text-slate-600 font-mono">{c.mobile}</td>
-                    <td className="p-3.5 font-mono text-slate-700 font-medium">
+                  <tr key={c.id} className="hover:bg-[#f6f8fb] transition-colors">
+                    <td className="p-3.5 font-mono font-bold text-[#173e48]">{c.customer_code}</td>
+                    <td className="p-3.5 font-bold text-[#17223a]">{c.name}</td>
+                    <td className="p-3.5 text-[#758195] font-mono">{c.mobile}</td>
+                    <td className="p-3.5 font-mono text-[#17223a] font-medium">
                       {c.gstin || 'Unregistered'}
                     </td>
-                    <td className="p-3.5 text-slate-700 font-medium">
+                    <td className="p-3.5 text-[#17223a] font-medium">
                       {c.state} ({c.state_code})
                     </td>
-                    <td className="p-3.5 text-slate-600">{c.city}</td>
+                    <td className="p-3.5 text-[#758195]">{c.city}</td>
                     <td className="p-3.5 text-center">
-                      <span className="text-emerald-600 font-bold text-[10px] bg-emerald-50 px-2 py-0.5 rounded">
+                      <span className="text-[#1b9e76] font-bold text-[10px] bg-[#edf6f4] border border-[#dfe5e4] px-2 py-0.5 rounded">
                         {c.status}
                       </span>
                     </td>
@@ -126,89 +127,89 @@ export default function CustomersPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-200">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-                <h3 className="font-bold text-sm text-slate-900">Add New Customer</h3>
-                <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-700">
+          <div className="fixed inset-0 z-50 bg-[#0a2025]/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6 space-y-4 shadow-xl border border-[#e8edf3]">
+              <div className="flex items-center justify-between pb-2 border-b border-[#e8edf3]">
+                <h3 className="font-bold text-sm text-[#17223a]">Add New Customer</h3>
+                <button onClick={() => setShowModal(false)} className="text-[#8993a5] hover:text-[#17223a]">
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               <form onSubmit={handleCreateCustomer} className="space-y-3 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Customer / Entity Name *</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Customer / Entity Name *</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Mobile Number *</label>
+                    <label className="block font-bold text-[#17223a] mb-1">Mobile Number *</label>
                     <input
                       type="text"
                       required
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Email</label>
+                    <label className="block font-bold text-[#17223a] mb-1">Email</label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Customer GSTIN</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Customer GSTIN</label>
                   <input
                     type="text"
                     placeholder="e.g. 33AABCD1234E1Z5"
                     value={gstin}
                     onChange={(e) => setGstin(e.target.value.toUpperCase())}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono"
+                    className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] font-mono focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Billing State *</label>
+                    <label className="block font-bold text-[#17223a] mb-1">Billing State *</label>
                     <input
                       type="text"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">State Code (GST)</label>
+                    <label className="block font-bold text-[#17223a] mb-1">State Code (GST)</label>
                     <input
                       type="text"
                       value={stateCode}
                       onChange={(e) => setStateCode(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] font-mono focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Billing Address *</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Billing Address *</label>
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
 
@@ -216,13 +217,13 @@ export default function CustomersPage() {
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-semibold"
+                    className="px-3.5 py-1.5 rounded-md bg-[#f6f8fb] border border-[#e8edf3] text-[#758195] font-semibold hover:bg-[#edf1f7]"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                    className="px-4 py-1.5 rounded-md bg-[#2769d7] hover:bg-[#2059bd] text-white font-bold shadow-xs"
                   >
                     Save Customer
                   </button>

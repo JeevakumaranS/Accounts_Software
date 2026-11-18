@@ -66,30 +66,31 @@ export default function VendorsPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f6f8fb]">
       <Sidebar />
 
       <main className="flex-1 flex flex-col min-w-0">
         <Header
+          eyebrow="SUPPLIER DIRECTORY"
           title="Vendor & Supplier Management"
           subtitle="Directory of vendors, tax details and bank settlement information"
         />
 
         <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-800">Vendors ({vendors.length})</h2>
+            <h2 className="text-sm font-bold text-[#17223a]">Vendors ({vendors.length})</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-all shadow-md shadow-purple-600/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#173e48] hover:bg-[#214e58] text-white text-xs font-bold transition-all shadow-xs"
             >
-              <PlusCircle className="h-4 w-4" />
+              <PlusCircle className="h-4 w-4 text-[#d5ad78]" />
               <span>Add Vendor</span>
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <div className="bg-white rounded-lg border border-[#e8edf3] overflow-hidden shadow-xs">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-[#f6f8fb] text-[#8993a5] text-[11px] font-bold uppercase tracking-wider border-b border-[#e8edf3]">
                 <tr>
                   <th className="p-3.5">Code</th>
                   <th className="p-3.5">Vendor Name</th>
@@ -100,21 +101,21 @@ export default function VendorsPage() {
                   <th className="p-3.5 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-[#eef1f5]">
                 {vendors.map((v) => (
-                  <tr key={v.id} className="hover:bg-slate-50/70">
-                    <td className="p-3.5 font-mono font-bold text-purple-600">{v.vendor_code}</td>
-                    <td className="p-3.5 font-bold text-slate-900">{v.name}</td>
-                    <td className="p-3.5 text-slate-600">{v.mobile || v.email}</td>
-                    <td className="p-3.5 font-mono text-slate-700">{v.gstin || '-'}</td>
-                    <td className="p-3.5 text-slate-700 font-medium">
+                  <tr key={v.id} className="hover:bg-[#f6f8fb] transition-colors">
+                    <td className="p-3.5 font-mono font-bold text-[#173e48]">{v.vendor_code}</td>
+                    <td className="p-3.5 font-bold text-[#17223a]">{v.name}</td>
+                    <td className="p-3.5 text-[#758195]">{v.mobile || v.email}</td>
+                    <td className="p-3.5 font-mono text-[#17223a]">{v.gstin || '-'}</td>
+                    <td className="p-3.5 text-[#17223a] font-medium">
                       {v.state} ({v.state_code})
                     </td>
-                    <td className="p-3.5 text-slate-600">
+                    <td className="p-3.5 text-[#758195]">
                       {v.bank_name ? `${v.bank_name} - ${v.bank_account_number || ''}` : '-'}
                     </td>
                     <td className="p-3.5 text-center">
-                      <span className="text-emerald-600 font-bold text-[10px] bg-emerald-50 px-2 py-0.5 rounded">
+                      <span className="text-[#1b9e76] font-bold text-[10px] bg-[#edf6f4] border border-[#dfe5e4] px-2 py-0.5 rounded">
                         Active
                       </span>
                     </td>
@@ -127,75 +128,75 @@ export default function VendorsPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-200">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-                <h3 className="font-bold text-sm text-slate-900">Add New Vendor</h3>
-                <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-700">
+          <div className="fixed inset-0 z-50 bg-[#0a2025]/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6 space-y-4 shadow-xl border border-[#e8edf3]">
+              <div className="flex items-center justify-between pb-2 border-b border-[#e8edf3]">
+                <h3 className="font-bold text-sm text-[#17223a]">Add New Vendor</h3>
+                <button onClick={() => setShowModal(false)} className="text-[#8993a5] hover:text-[#17223a]">
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               <form onSubmit={handleCreateVendor} className="space-y-3 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Vendor / Business Name *</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Vendor / Business Name *</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Mobile / Phone</label>
+                    <label className="block font-bold text-[#17223a] mb-1">Mobile / Phone</label>
                     <input
                       type="text"
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Email</label>
+                    <label className="block font-bold text-[#17223a] mb-1">Email</label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Vendor GSTIN</label>
+                  <label className="block font-bold text-[#17223a] mb-1">Vendor GSTIN</label>
                   <input
                     type="text"
                     value={gstin}
                     onChange={(e) => setGstin(e.target.value.toUpperCase())}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono"
+                    className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] font-mono focus:ring-2 focus:ring-[#2769d7]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">State</label>
+                    <label className="block font-bold text-[#17223a] mb-1">State</label>
                     <input
                       type="text"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">State Code</label>
+                    <label className="block font-bold text-[#17223a] mb-1">State Code</label>
                     <input
                       type="text"
                       value={stateCode}
                       onChange={(e) => setStateCode(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono"
+                      className="w-full px-3 py-2 rounded-md border border-[#d5e0dd] font-mono focus:ring-2 focus:ring-[#2769d7]"
                     />
                   </div>
                 </div>
@@ -204,13 +205,13 @@ export default function VendorsPage() {
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-semibold"
+                    className="px-3.5 py-1.5 rounded-md bg-[#f6f8fb] border border-[#e8edf3] text-[#758195] font-semibold hover:bg-[#edf1f7]"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                    className="px-4 py-1.5 rounded-md bg-[#173e48] hover:bg-[#214e58] text-white font-bold shadow-xs"
                   >
                     Save Vendor
                   </button>
