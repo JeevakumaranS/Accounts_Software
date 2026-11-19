@@ -16,8 +16,8 @@ export default function GSTPage() {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      api.get('/gst/gstr-3b'),
-      api.get('/gst/gstr-1'),
+      api.get('/reports/gstr3b'),
+      api.get('/reports/gstr1'),
       api.get('/gst/rates'),
     ])
       .then(([r3b, r1, rRates]) => {
@@ -153,6 +153,25 @@ export default function GSTPage() {
                   </div>
                 </div>
               </div>
+
+              <div className="bg-white p-5 rounded-xl border border-[#f3e5c9] shadow-[0_1px_2px_rgba(220,225,232,0.35)] space-y-3">
+                <div>
+                  <h3 className="font-bold text-sm text-[#694b14]">
+                    Reverse Charge GST Payable by Recipients
+                  </h3>
+                  <p className="text-[11px] text-[#758195] mt-1">
+                    Tracked separately from your output tax; this GST is payable by recipients and is not collected by your company.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+                  <div><span className="block text-[#8993a5]">Invoices</span><strong>{gstr3b.recipient_reverse_charge_liability?.invoice_count || 0}</strong></div>
+                  <div><span className="block text-[#8993a5]">CGST</span><strong>{formatINR(gstr3b.recipient_reverse_charge_liability?.cgst)}</strong></div>
+                  <div><span className="block text-[#8993a5]">SGST</span><strong>{formatINR(gstr3b.recipient_reverse_charge_liability?.sgst)}</strong></div>
+                  <div><span className="block text-[#8993a5]">IGST</span><strong>{formatINR(gstr3b.recipient_reverse_charge_liability?.igst)}</strong></div>
+                  <div><span className="block text-[#8993a5]">Cess</span><strong>{formatINR(gstr3b.recipient_reverse_charge_liability?.cess)}</strong></div>
+                  <div><span className="block text-[#8993a5]">Total Recipient Liability</span><strong className="text-[#694b14]">{formatINR(gstr3b.recipient_reverse_charge_liability?.total_tax)}</strong></div>
+                </div>
+              </div>
             </div>
           )}
 
@@ -170,6 +189,7 @@ export default function GSTPage() {
                     <th className="p-3">Customer Name</th>
                     <th className="p-3">GSTIN</th>
                     <th className="p-3">Place of Supply</th>
+                    <th className="p-3">Tax Treatment</th>
                     <th className="p-3 text-right">Taxable (₹)</th>
                     <th className="p-3 text-right">CGST</th>
                     <th className="p-3 text-right">SGST</th>
@@ -185,6 +205,15 @@ export default function GSTPage() {
                       <td className="p-3 font-semibold text-[#17223a]">{inv.customer_name}</td>
                       <td className="p-3 font-mono text-[#758195]">{inv.customer_gstin}</td>
                       <td className="p-3 text-[#758195]">{inv.place_of_supply}</td>
+                      <td className="p-3">
+                        {inv.is_reverse_charge ? (
+                          <span className="px-2 py-1 rounded bg-[#fff4df] text-[#694b14] font-bold text-[10px]">
+                            RCM - Recipient pays
+                          </span>
+                        ) : (
+                          <span className="text-[#758195]">Supplier collects</span>
+                        )}
+                      </td>
                       <td className="p-3 text-right font-medium text-[#17223a]">{formatINR(inv.taxable_value)}</td>
                       <td className="p-3 text-right text-[#758195]">{formatINR(inv.cgst)}</td>
                       <td className="p-3 text-right text-[#758195]">{formatINR(inv.sgst)}</td>

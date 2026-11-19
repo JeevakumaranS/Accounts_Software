@@ -30,4 +30,12 @@ export class AuditService {
       take: limit,
     });
   }
+
+  async findByEntity(entityType: string, entityId: string) {
+    return this.auditRepository.find({
+      where: { entity_type: entityType, entity_id: entityId },
+      relations: ['user'],
+      order: { created_at: 'ASC' },
+    });
+  }
 }

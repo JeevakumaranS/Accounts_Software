@@ -19,7 +19,7 @@ export default function ReportsPage() {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      api.get('/reports/profit-and-loss'),
+      api.get('/reports/profit-loss'),
       api.get('/reports/balance-sheet'),
       api.get('/reports/cash-flow'),
     ])

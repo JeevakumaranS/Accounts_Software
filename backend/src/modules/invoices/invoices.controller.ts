@@ -2,6 +2,8 @@ import {
   Controller,
   Get,
   Post,
+  Put,
+  Delete,
   Param,
   Body,
   UseGuards,
@@ -31,6 +33,20 @@ export class InvoicesController {
     return this.invoicesService.findById(id);
   }
 
+  @Put(':id')
+  updateDraft(
+    @Param('id') id: string,
+    @Body() data: any,
+    @CurrentUser() user: any,
+  ) {
+    return this.invoicesService.updateDraft(id, data, user.id);
+  }
+
+  @Delete(':id')
+  deleteDraft(@Param('id') id: string, @CurrentUser() user: any) {
+    return this.invoicesService.deleteDraft(id, user.id);
+  }
+
   @Post(':id/post')
   postInvoice(@Param('id') id: string, @CurrentUser() user: any) {
     return this.invoicesService.postInvoice(id, user.id);
@@ -43,5 +59,33 @@ export class InvoicesController {
     @CurrentUser() user: any,
   ) {
     return this.invoicesService.cancelInvoice(id, reason || 'Cancelled by user', user.id);
+  }
+
+  @Post(':id/payments')
+  recordPayment(
+    @Param('id') id: string,
+    @Body() data: any,
+    @CurrentUser() user: any,
+  ) {
+    return this.invoicesService.recordPayment(id, data, user.id);
+  }
+
+  @Post(':id/credit-notes')
+  createCreditNote(
+    @Param('id') id: string,
+    @Body() data: any,
+    @CurrentUser() user: any,
+  ) {
+    return this.invoicesService.createCreditNote(id, data, user.id);
+  }
+
+  @Get(':id/credit-notes')
+  getCreditNotes(@Param('id') id: string) {
+    return this.invoicesService.getCreditNotes(id);
+  }
+
+  @Get(':id/history')
+  getHistory(@Param('id') id: string) {
+    return this.invoicesService.getInvoiceHistory(id);
   }
 }

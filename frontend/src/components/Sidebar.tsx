@@ -6,11 +6,13 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   FileText,
+  UserCheck,
   ArrowDownToLine,
+  ShoppingCart,
+  Building2,
   ArrowUpFromLine,
   Receipt,
   Users,
-  ShoppingCart,
   Landmark,
   BookOpen,
   Calculator,
@@ -30,9 +32,11 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Customers', href: '/customers', icon: UserCheck },
   { name: 'Sales & Invoices', href: '/invoices', icon: FileText },
   { name: 'Receivables', href: '/receivables', icon: ArrowDownToLine },
   { name: 'Purchases (Bills)', href: '/vendor-bills', icon: ShoppingCart },
+  { name: 'Vendors', href: '/vendors', icon: Building2 },
   { name: 'Payables', href: '/payables', icon: ArrowUpFromLine },
   { name: 'Expenses', href: '/expenses', icon: Receipt },
   { name: 'Employees & Payroll', href: '/payroll', icon: Users },

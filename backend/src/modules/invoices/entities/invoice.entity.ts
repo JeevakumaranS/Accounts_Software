@@ -3,6 +3,7 @@ import { BaseEntity } from '../../../shared/entities/base.entity';
 import { InvoiceStatus } from '../../../shared/enums/invoice-status.enum';
 import { Customer } from '../../customers/entities/customer.entity';
 import { InvoiceItem } from './invoice-item.entity';
+import { CreditNote } from './credit-note.entity';
 import { PaymentAllocation } from '../../receivables/entities/payment-allocation.entity';
 import { JournalEntry } from '../../accounting/entities/journal-entry.entity';
 import { FinancialYear } from '../../company/entities/financial-year.entity';
@@ -56,6 +57,9 @@ export class Invoice extends BaseEntity {
   total_amount: number;
 
   @Column('numeric', { precision: 18, scale: 2, default: 0 })
+  rounding_adjustment: number;
+
+  @Column('numeric', { precision: 18, scale: 2, default: 0 })
   amount_paid: number;
 
   @Column('numeric', { precision: 18, scale: 2, default: 0 })
@@ -85,6 +89,9 @@ export class Invoice extends BaseEntity {
 
   @OneToMany(() => InvoiceItem, (item) => item.invoice, { cascade: true })
   items: InvoiceItem[];
+
+  @OneToMany(() => CreditNote, (cn) => cn.invoice)
+  credit_notes: CreditNote[];
 
   @OneToMany(() => PaymentAllocation, (allocation) => allocation.invoice)
   payment_allocations: PaymentAllocation[];

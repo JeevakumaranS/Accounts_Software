@@ -46,16 +46,30 @@ export class GstService {
     let totalSgst = 0;
     let totalIgst = 0;
     let totalInvoiceValue = 0;
+    let rcmInvoiceCount = 0;
+    let rcmCgst = 0;
+    let rcmSgst = 0;
+    let rcmIgst = 0;
+    let rcmCess = 0;
 
     const b2b = [];
     const b2c = [];
 
     for (const inv of invoices) {
       totalTaxable += Number(inv.taxable_amount) || 0;
-      totalCgst += Number(inv.cgst_amount) || 0;
-      totalSgst += Number(inv.sgst_amount) || 0;
-      totalIgst += Number(inv.igst_amount) || 0;
       totalInvoiceValue += Number(inv.total_amount) || 0;
+
+      if (inv.is_reverse_charge) {
+        rcmInvoiceCount += 1;
+        rcmCgst += Number(inv.cgst_amount) || 0;
+        rcmSgst += Number(inv.sgst_amount) || 0;
+        rcmIgst += Number(inv.igst_amount) || 0;
+        rcmCess += Number(inv.cess_amount) || 0;
+      } else {
+        totalCgst += Number(inv.cgst_amount) || 0;
+        totalSgst += Number(inv.sgst_amount) || 0;
+        totalIgst += Number(inv.igst_amount) || 0;
+      }
 
       const record = {
         invoice_number: inv.invoice_number,
@@ -87,6 +101,14 @@ export class GstService {
         total_igst: Number(totalIgst.toFixed(2)),
         total_tax: Number((totalCgst + totalSgst + totalIgst).toFixed(2)),
         total_invoice_value: Number(totalInvoiceValue.toFixed(2)),
+        recipient_reverse_charge: {
+          invoice_count: rcmInvoiceCount,
+          cgst: Number(rcmCgst.toFixed(2)),
+          sgst: Number(rcmSgst.toFixed(2)),
+          igst: Number(rcmIgst.toFixed(2)),
+          cess: Number(rcmCess.toFixed(2)),
+          total_tax: Number((rcmCgst + rcmSgst + rcmIgst + rcmCess).toFixed(2)),
+        },
       },
       b2b_invoices: b2b,
       b2c_invoices: b2c,
@@ -136,6 +158,7 @@ export class GstService {
         igst: outputIgst,
         total_output_tax: gstr1.summary.total_tax,
       },
+      recipient_reverse_charge_liability: gstr1.summary.recipient_reverse_charge,
       eligible_itc: {
         taxable_value: Number(itmTaxable.toFixed(2)),
         cgst: Number(itmCgst.toFixed(2)),

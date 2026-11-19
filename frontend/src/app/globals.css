@@ -172,3 +172,39 @@ body {
 .btn-action-blue:hover {
   background-color: #1d4ed8;
 }
+
+/* Print Styles for Invoices and Statutory Documents */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Hide everything except the printable invoice */
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-tax-invoice,
+  #printable-tax-invoice * {
+    visibility: visible;
+  }
+
+  #printable-tax-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  /* Hide modal buttons inside printable view */
+  #printable-tax-invoice button {
+    display: none !important;
+  }
+}

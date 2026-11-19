@@ -34,6 +34,9 @@ export class InvoiceItem extends BaseEntity {
   @Column('numeric', { precision: 5, scale: 2, default: 0 })
   tax_rate: number;
 
+  @Column('numeric', { precision: 5, scale: 2, default: 0 })
+  cess_rate: number;
+
   @Column('numeric', { precision: 18, scale: 2, default: 0 })
   cgst_amount: number;
 

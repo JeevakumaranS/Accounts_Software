@@ -29,7 +29,7 @@ export default function AccountingPage() {
 
   const loadTrialBalance = async () => {
     try {
-      const res = await api.get('/accounting/trial-balance');
+      const res = await api.get('/reports/trial-balance');
       setTrialBalance(res.data?.data || {});
     } catch (err) {
       console.error(err);
@@ -52,7 +52,7 @@ export default function AccountingPage() {
 
   const loadLedger = async (accId: string) => {
     try {
-      const res = await api.get(`/accounting/ledger/${accId}`);
+      const res = await api.get(`/ledger/${accId}`);
       setLedgerData(res.data?.data || null);
     } catch (err) {
       console.error(err);
@@ -61,7 +61,7 @@ export default function AccountingPage() {
 
   const loadJournals = async () => {
     try {
-      const res = await api.get('/accounting/journals');
+      const res = await api.get('/journals');
       setJournals(res.data?.data || []);
     } catch (err) {
       console.error(err);
@@ -79,7 +79,7 @@ export default function AccountingPage() {
     const reason = prompt('Reason for reversing this journal:');
     if (!reason) return;
     try {
-      await api.post(`/accounting/journals/${id}/reverse`, { reason });
+      await api.post(`/journals/${id}/reverse`, { reason });
       alert('Journal entry reversed and adjusting entries posted!');
       loadJournals();
       loadTrialBalance();
